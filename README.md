@@ -1,7 +1,7 @@
 # Dashboard
 
 ## Stack
-- [Vite](https://v3.vitejs.dev/) - Frontend tooling (we automatically run on port 80 and listen on all addresses)
+- [Vite](https://v3.vitejs.dev/) - Frontend tooling
 - [Vue](https://vuejs.org/) - Javascript framework
 - [Express](https://expressjs.com/en/4x/api.html) - Backend server
 
