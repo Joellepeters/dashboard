@@ -7,31 +7,66 @@ export default function init() {
 }
 
 
-// Replenishables
+/**
+ * Databases (ids are safely public)
+ */
 
-export async function getReplenishables(_request, response) {
+
+// Budget - https://www.notion.so/joellepeters/f8e266bfce99423c911fa98bdc28375a
+
+export async function getBudget(_request, response) {
   const data = await notion.databases.query({
-    database_id: process.env.REPLENISHABLES_DB_ID
+    database_id:'f8e266bfce99423c911fa98bdc28375a'
   })
   return response.json(data.results)
 }
 
 
-// Recipes
+// Inventory - https://www.notion.so/joellepeters/941d9c5044f04561beb0a8a62432543f
+
+export async function getInventory(_request, response) {
+  const data = await notion.databases.query({
+    database_id:'941d9c5044f04561beb0a8a62432543f'
+  })
+  return response.json(data.results)
+}
+
+
+// Fitness - https://www.notion.so/joellepeters/3005b2e70bf34de69a2e08ed168ce893
+
+export async function getFitness(_request, response) {
+  const data = await notion.databases.query({
+    database_id:'3005b2e70bf34de69a2e08ed168ce893'
+  })
+  return response.json(data.results)
+}
+
+
+// Replenishables - https://www.notion.so/joellepeters/396a97f619874c90adec3e8dbee08a63
+
+export async function getReplenishables(_request, response) {
+  const data = await notion.databases.query({
+    database_id: '396a97f619874c90adec3e8dbee08a63'
+  })
+  return response.json(data.results)
+}
+
+
+// Recipes - https://www.notion.so/joellepeters/3d742e8af64e4cbba45119ab5517462a
 
 export async function getRecipes(_request, response) {
   const data = await notion.databases.query({
-    database_id: process.env.RECIPES_DB_ID
+    database_id: '3d742e8af64e4cbba45119ab5517462a'
   })
   response.json(data.results)
 }
 
 
-// Instructions
+// Instructions - https://www.notion.so/joellepeters/0029b10fe05d4d418a40d17413c64a2b
 
 export async function getInstructions(_request, response) {
   const data = await notion.databases.query({
-    database_id: process.env.INSTRUCTIONS_DB_ID
+    database_id: '0029b10fe05d4d418a40d17413c64a2b'
   })
   return response.json(data.results)
 }
