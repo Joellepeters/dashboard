@@ -6,9 +6,10 @@ import {
   RECIPES,
   REPLENISHABLES,
 } from './constants.js'
+
 import BudgetScreen from './components/Budget.vue'
 import FitnessScreen from './components/Fitness.vue'
-import InventoryScreen from './components/Inventory.vue'
+import InventoryGrid from './components/inventory/InventoryGrid.vue'
 import RecipesScreen from './components/Recipes.vue'
 import ReplenishablesScreen from './components/Replenishables.vue'
 
@@ -19,19 +20,20 @@ export default {
   components: {
     BudgetScreen,
     FitnessScreen,
-    InventoryScreen,
+    InventoryGrid,
     RecipesScreen,
     ReplenishablesScreen,
     Navigation,
   },
   methods: {
-    setView(id) {
+    setView(id: string) {
+      window.localStorage.setItem('viewId', id)
       this.viewId = id
     },
   },
   data() {
     return {
-      viewId: null,
+      viewId: window.localStorage.getItem('viewId') || '',
       BUDGET,
       FITNESS,
       INVENTORY,
@@ -47,7 +49,7 @@ export default {
     <Navigation :onSetView="setView" :viewId="viewId" />
     <BudgetScreen v-if="viewId === BUDGET" />
     <FitnessScreen v-if="viewId === FITNESS" />
-    <InventoryScreen v-if="viewId === INVENTORY" />
+    <InventoryGrid v-if="viewId === INVENTORY" />
     <RecipesScreen v-if="viewId === RECIPES" />
     <ReplenishablesScreen v-if="viewId === REPLENISHABLES" />
   </main>
@@ -60,13 +62,31 @@ export default {
   --spacing-base: 20px;
   --spacing-large: 40px;
   --spacing-xlarge: 60px;
-  --font-family: sans-serif;
+
+  --font-family: -system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-small: 15px;
   --font-base: 16px;
   --font-large: 20px;
   --font-xlarge: 26px;
+  --font-bold: 600;
+
+  --brand: hsl(212, 90%, 50%);
+  --lightest: hsl(0, 0%, 96%);
+  --neutral: hsl(0, 0%, 40%);
   --darkest: hsl(0, 0%, 10%);
-  --border-radius-1: 20px;
+
+  --border-radius-1: 8px;
+  --border-radius-2: 20px;
+  --border-radius-3: 30px;
   --shadow-1: 0 12px 32px hsla(0, 0%, 0%, 0.05), 0 1px 1px hsla(0, 0%, 0%, 0.1);
+
+  --depth-floating: 3;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-base);
 }
 
 body {
@@ -79,14 +99,40 @@ body {
   overflow: hidden;
 }
 
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  padding: 0;
+  font-size: 14px;
+}
+
+menu {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  appearance: none;
+  background: transparent;
+  outline: none;
+  border: none;
+  text-align: left;
+  font-size: var(--font-base);
+}
+
 h1 {
   font-family: var(--font-family);
   font-size: 40px;
   margin: 0;
 }
 
+strong {
+  font-weight: var(--font-bold);
+}
+
 #app {
   position: fixed;
+  overflow-y: scroll;
   top: 0;
   right: 0;
   bottom: 0;
