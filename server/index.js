@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import dotenv from "dotenv"
 
 import initNotion, {
+  getInventory,
   getInstructions,
   getPage,
   getRecipes,
@@ -24,6 +25,7 @@ app.set('trust proxy', true) // Prevents CORS issue
 initNotion()
 
 // Endpoints
+app.get('/inventory', getInventory)
 app.get('/replenishables', getReplenishables)
 app.get('/recipes', getRecipes)
 app.get('/page', getPage)

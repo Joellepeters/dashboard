@@ -9,12 +9,6 @@ export default {
     RecipeCard,
     RecipeModal,
   },
-  data() {
-    return {
-      recipes: [],
-      recipeId: 'bcd15d03-c305-4882-9f36-772970a8e42f',
-    }
-  },
   methods: {
     async getRecipes() {
       const response = await fetch(SERVER_URL + '/recipes')
@@ -27,6 +21,12 @@ export default {
 
   created() {
     this.getRecipes()
+  },
+  data() {
+    return {
+      recipes: [],
+      recipeId: 'bcd15d03-c305-4882-9f36-772970a8e42f',
+    }
   },
 }
 </script>

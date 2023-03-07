@@ -27,37 +27,37 @@ export default {
 
 <template>
   <nav>
-    <menu v-if="viewId == null">
+    <menu v-if="viewId.length === 0">
       <button @click="() => onSetView(BUDGET)" type="button">Budget</button>
       <button @click="() => onSetView(FITNESS)" type="button">Fitness</button>
       <button @click="() => onSetView(INVENTORY)" type="button">Inventory</button>
       <button @click="() => onSetView(RECIPES)" type="button">Recipes</button>
       <button @click="() => onSetView(REPLENISHABLES)" type="button">Replenishables</button>
     </menu>
-    <menu v-if="viewId">
-      <button @click="() => onSetView(null)" type="button">Back</button>
-    </menu>
+    <button @click="() => onSetView('')" v-if="viewId" class="back" type="button">Back</button>
   </nav>
 </template>
 
-<style>
+<style scoped>
 menu {
   display: flex;
   flex-direction: column;
-  margin: 0;
-  padding: 0;
   background: white;
   border-radius: var(--border-radius-1);
   box-shadow: var(--shadow-1);
 }
 
-button {
-  appearance: none;
-  background: transparent;
-  outline: none;
-  border: none;
-  text-align: left;
+menu button {
   font-size: var(--font-xlarge);
   padding: var(--spacing-large);
+}
+.back {
+  font-weight: var(--font-bold);
+  padding: var(--spacing-base) var(--spacing-large);
+  border-radius: var(--border-radius-3);
+  color: var(--brand);
+  background: hsla(0, 0%, 96%, 0.5);
+  z-index: var(--depth-floating);
+  font-size: var(--font-xlarge);
 }
 </style>
