@@ -10,7 +10,7 @@ import {
 import BudgetScreen from './components/Budget.vue'
 import FitnessScreen from './components/Fitness.vue'
 import InventoryGrid from './components/inventory/InventoryGrid.vue'
-import RecipesScreen from './components/Recipes.vue'
+import RecipesGrid from './components/recipes/RecipesGrid.vue'
 import ReplenishablesScreen from './components/Replenishables.vue'
 
 import Navigation from './components/Navigation.vue'
@@ -21,7 +21,7 @@ export default {
     BudgetScreen,
     FitnessScreen,
     InventoryGrid,
-    RecipesScreen,
+    RecipesGrid,
     ReplenishablesScreen,
     Navigation,
   },
@@ -50,13 +50,14 @@ export default {
     <BudgetScreen v-if="viewId === BUDGET" />
     <FitnessScreen v-if="viewId === FITNESS" />
     <InventoryGrid v-if="viewId === INVENTORY" />
-    <RecipesScreen v-if="viewId === RECIPES" />
+    <RecipesGrid v-if="viewId === RECIPES" />
     <ReplenishablesScreen v-if="viewId === REPLENISHABLES" />
   </main>
 </template>
 
 <style>
 :root {
+  --spacing-tiny: 4px;
   --spacing-small: 10px;
   --spacing-medium: 15px;
   --spacing-base: 20px;
@@ -72,6 +73,7 @@ export default {
 
   --brand: hsl(212, 90%, 50%);
   --lightest: hsl(0, 0%, 96%);
+  --light: hsl(0, 0%, 80%);
   --neutral: hsl(0, 0%, 40%);
   --darkest: hsl(0, 0%, 10%);
 
@@ -112,6 +114,7 @@ menu {
 }
 
 button {
+  cursor: pointer;
   appearance: none;
   background: transparent;
   outline: none;
@@ -128,6 +131,12 @@ h1 {
 
 strong {
   font-weight: var(--font-bold);
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 #app {

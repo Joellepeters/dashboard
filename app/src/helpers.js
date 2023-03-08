@@ -13,3 +13,9 @@ export function getMultiSelectCategory(item) {
     return item.properties.category.multi_select[0]
   else return null
 }
+
+export function getSummary(item) {
+  if (item.properties.summary.rich_text.length > 0)
+    return item.properties.summary.rich_text[0].text.content
+  else return null
+}

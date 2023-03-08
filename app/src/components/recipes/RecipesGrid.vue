@@ -1,16 +1,16 @@
 <script lang="ts">
-import { SERVER_URL } from '../constants.js'
+import { SERVER_URL } from '../../constants.js'
+import BaseLoader from '../shared/BaseLoader.vue'
 import RecipeCard from './RecipeCard.vue'
-import RecipeModal from './RecipeModal.vue'
 
 export default {
   name: 'RecipesGrid',
   components: {
+    BaseLoader,
     RecipeCard,
-    RecipeModal,
   },
   methods: {
-    async getRecipes() {
+    async fetchRecipes() {
       const response = await fetch(SERVER_URL + '/recipes')
       this.recipes = await response.json()
     },
@@ -20,7 +20,7 @@ export default {
   },
 
   created() {
-    this.getRecipes()
+    this.fetchRecipes()
   },
   data() {
     return {
@@ -32,23 +32,21 @@ export default {
 </script>
 
 <template>
-  <section className="grid">
+  <menu className="grid">
     <RecipeCard
       :recipe="recipe"
       v-for="(recipe, index) in recipes"
       v-bind:key="index"
     />
-  </section>
-  <RecipeModal :id="recipeId" v-if="recipeId" />
+    <BaseLoader v-if="recipes.length === 0" />
+  </menu>
 </template>
 
 <style scoped>
 .grid {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: var(--spacing-base);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-small);
 }
 
 .details {

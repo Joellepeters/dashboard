@@ -1,9 +1,13 @@
 <script lang="ts">
 import { SERVER_URL } from '../../constants.js'
 import { getHeadline, getImageUrl, getMultiSelectCategory } from '../../helpers.js'
+import BaseCard from '../shared/BaseCard.vue'
 
 export default {
   name: 'InventoryGrid',
+  components: {
+    BaseCard,
+  },
   methods: {
     async fetchInventory() {
       const response = await fetch(SERVER_URL + '/inventory')
@@ -34,18 +38,13 @@ export default {
   <article>
     <div v-if="inventory.length === 0">Loading inventory</div>
     <menu class="Grid" v-if="inventory.length > 0">
-      <button class="Card" v-for="(item, index) in inventory" v-bind:key="index">
-        <figure>
-          <img :src="imageUrl(item)" alt="" />
-        </figure>
-        <header>
-          <strong>{{ headline(item) }}</strong>
-          <small>{{ category(item).name }}</small>
-        </header>
-        <!-- <pre>
-          {{ item.properties.category.multi_select }}
-        </pre> -->
-      </button>
+      <BaseCard
+        v-for="(item, index) in inventory"
+        v-bind:key="index"
+        :imageUrl="imageUrl(item)"
+        :headline="headline(item)"
+        :category="category(item).name"
+      />
     </menu>
     <nav>
       <menu>
@@ -100,39 +99,5 @@ nav menu button {
   font-size: var(--font-xlarge);
   padding: var(--spacing-large) var(--spacing-xlarge);
   color: white;
-}
-
-figure {
-  position: relative;
-  width: 100%;
-  max-width: 85%;
-  padding-top: 85%;
-  background-color: hsl(0, 0%, 95%);
-  border-radius: var(--border-radius-1);
-  margin: 0;
-}
-
-figure img {
-  position: absolute;
-  width: 100%;
-  height: auto;
-  top: 0;
-  left: 0;
-}
-
-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-small);
-}
-
-small {
-  padding: 4px 8px;
-  font-weight: var(--font-bold);
-  font-size: var(--font-base);
-  background: var(--lightest);
-  color: var(--neutral);
-  border-radius: var(--border-radius-1);
 }
 </style>
