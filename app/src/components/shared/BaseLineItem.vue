@@ -5,7 +5,10 @@ export default {
     imageUrl: String,
     headline: String,
     subheadline: String,
-    columns: String,
+    columns: {
+      type: String,
+      default: '40px 1fr',
+    },
   },
 }
 </script>
@@ -31,7 +34,6 @@ li {
   grid-template-rows: 1fr;
   align-items: center;
   gap: var(--spacing-small);
-  padding: var(--spacing-medium) 0;
   border-radius: var(--border-radius-2);
 }
 

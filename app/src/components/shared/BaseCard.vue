@@ -1,28 +1,95 @@
 <script lang="ts">
-// import BaseLoader from './BaseLoader.vue';
+const LONG_PRESS_INTERVAL = 300
 
 export default {
   name: 'BaseCard',
   props: {
-    id: String,
-    imageUrl: String,
-    headline: String,
-    subheadline: String,
-    onClick: Function,
-    loading: Boolean,
+    id: {
+      type: String,
+      required: false,
+    },
+    imageUrl: {
+      type: String,
+      required: false,
+    },
+    headline: {
+      type: String,
+      required: true,
+    },
+    subheadline: {
+      type: String,
+      required: false,
+    },
+    loading: {
+      type: Boolean,
+      default: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    index: {
+      type: Number,
+      required: false,
+    },
+    onLongPress: Function,
+    onSwipeLeft: Function,
   },
-  components: {
-    // BaseLoader,
-  }
+  methods: {
+    onTap() {
+      console.log('tap')
+    },
+    startDrag(event: TouchEvent) {
+      console.log('start')
+      this.setLongPressInterval()
+      this.pageX = event.pageX
+      this.pageY = event.pageY
+    },
+    endDrag(event: TouchEvent) {
+      clearTimeout(this.longPressInterval)
+      if (this.longPress) this.onLongPress()
+      // if (event.pageX < this.pageX) {
+      //   console.log('swipe left')
+      // } else {
+      //   console.log('swipe right')
+      // }
+    },
+    setLongPressInterval() {
+      this.longPressInterval = setTimeout(
+        () => (this.longPress = true),
+        LONG_PRESS_INTERVAL
+      )
+    },
+  },
+  data() {
+    return {
+      pageX: null,
+      pageY: null,
+      longPress: false,
+      initial: { opacity: 0, scale: 0.7 },
+      enter: this.index
+        ? { opacity: 1, scale: 1, transition: { delay: 40 * this.index } }
+        : { opacity: 1, scale: 1 },
+    }
+  },
 }
 </script>
 
 <template>
   <button
-    @click="() => onClick(id)"
-    :disabled="loading"
-    type="button">
-    <figure :style="{ backgroundImage: 'url(' + imageUrl + ')' }">
+    v-motion
+    v-use-longpress="500"
+    @longpress="onLongpress"
+    @touchstart="startDrag"
+    @touchend="endDrag"
+    :initial="initial"
+    :enter="enter"
+    :disabled="disabled === true"
+    type="button"
+  >
+    <figure
+      :style="{ backgroundImage: imageUrl ? 'url(' + imageUrl + ')' : null }"
+    >
       <img :src="imageUrl" />
     </figure>
     <header>
@@ -37,6 +104,7 @@ export default {
 
 <style scoped>
 button {
+  user-select: none;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -61,6 +129,7 @@ button:disabled {
 figure {
   position: relative;
   background-size: cover;
+  background-position: center;
   width: 100%;
   max-width: 85%;
   padding-top: 85%;
@@ -74,23 +143,20 @@ img {
 }
 
 header {
+  user-select: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-small);
 }
 
-footer {
-  font-size: 12px;
-  text-align: left;
-  color: var(--neutral);
-}
-
-strong {
+header strong {
+  user-select: none;
   font-size: var(--font-large);
 }
 
-small {
+header small {
+  user-select: none;
   font-weight: var(--font-bold);
   font-size: var(--font-base);
   color: var(--neutral);

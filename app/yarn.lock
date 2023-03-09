@@ -348,6 +348,11 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@nanogiants/vue3-longpress@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@nanogiants/vue3-longpress/-/vue3-longpress-1.0.8.tgz#619dcc700554a4201620c8fb7cceed42db14f6ef"
+  integrity sha512-yrqqhrjMKJ/18A+Iq+68E1C1ZrzJeA2ya2y16Zba2kr8ktBgIeQpthIBeXl5wG5B8T5LrDnSy0DjsL1VxC0uCA==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"

@@ -4,7 +4,9 @@ export function getHeadline(item) {
 
 export function getImageUrl(item) {
   if (item.properties.image.files.length > 0)
-    return item.properties.image.files[0].file.url
+    if (item.properties.image.files[0].file)
+      return item.properties.image.files[0].file.url
+    else return null
   else return null
 }
 

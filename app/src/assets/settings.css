@@ -1,0 +1,43 @@
+:root {
+  --spacing-tiny: 4px;
+  --spacing-small: 10px;
+  --spacing-base: 15px;
+  --spacing-medium: 20px;
+  --spacing-large: 40px;
+  --spacing-xlarge: 60px;
+
+  --font-family: -system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-small: 15px;
+  --font-base: 16px;
+  --font-large: 20px;
+  --font-xlarge: 26px;
+  --font-bold: 600;
+
+  --brand: hsl(212, 90%, 50%);
+  --brand-1: hsl(212, 80%, 50%);
+  --brand-2: hsl(212, 90%, 45%);
+  --brand-transparent: hsl(212, 90%, 50%, 0.5);
+
+  --lightest: hsl(0, 0%, 96%);
+  --light: hsl(0, 0%, 80%);
+  --neutral: hsl(0, 0%, 40%);
+  --darkest: hsl(0, 0%, 10%);
+
+  --border-radius-1: 8px;
+  --border-radius-2: 20px;
+  --border-radius-3: 30px;
+  --border-radius-4: 40px;
+
+  --shadow-1:
+    0 12px 32px hsla(0, 0%, 0%, 0.05),
+    0 1px 1px hsla(0, 0%, 0%, 0.1);
+  --shadow-2:
+    0 24px 60px hsla(0, 0%, 0%, 0.1),
+    0 12px 32px hsla(0, 0%, 0%, 0.1),
+    0 1px 1px   hsla(0, 0%, 0%, 0.2);
+  --shadow-brand-2:
+    0 24px 60px hsla(212, 80%, 30%, 0.3),
+    0 12px 32px hsla(212, 80%, 30%, 0.3),
+    0 1px 1px   hsla(212, 80%, 20%, 0.2);
+  --depth-floating: 3;
+}

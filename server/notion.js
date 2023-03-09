@@ -32,16 +32,6 @@ export async function getInventory(_request, response) {
 }
 
 
-// Fitness - https://www.notion.so/joellepeters/3005b2e70bf34de69a2e08ed168ce893
-
-export async function getFitness(_request, response) {
-  const data = await notion.databases.query({
-    database_id:'3005b2e70bf34de69a2e08ed168ce893'
-  })
-  return response.json(data.results)
-}
-
-
 // Replenishables - https://www.notion.so/joellepeters/396a97f619874c90adec3e8dbee08a63
 
 export async function getReplenishables(_request, response) {

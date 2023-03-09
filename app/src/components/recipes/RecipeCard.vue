@@ -4,28 +4,17 @@ import { getHeadline, getImageUrl, getSummary } from '../../helpers.js'
 
 import BaseCard from '../shared/BaseCard.vue'
 import BaseLineItem from '../shared/BaseLineItem.vue'
-import BaseLoader from '../shared/BaseLoader.vue'
 import BaseModal from '../shared/BaseModal.vue'
 
 export default {
   name: 'RecipeCard',
-  components: {
-    BaseCard,
-    BaseLineItem,
-    BaseLoader,
-    BaseModal,
-},
   props: {
     recipe: Object,
   },
-  data() {
-    return {
-      expanded: false,
-      ingredients: [],
-    }
-  },
-  created() {
-    this.getReplenishables()
+  components: {
+    BaseCard,
+    BaseLineItem,
+    BaseModal,
   },
   methods: {
     async getReplenishables() {
@@ -62,6 +51,15 @@ export default {
     imageUrl(recipe: object) {
       return getImageUrl(recipe)
     }
+  },
+  data() {
+    return {
+      expanded: false,
+      ingredients: [],
+    }
+  },
+  created() {
+    this.getReplenishables()
   },
 }
 </script>
