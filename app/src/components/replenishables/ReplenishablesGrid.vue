@@ -30,7 +30,7 @@ export default {
   <menu class="grid">
     <ReplenishableCard
       v-for="(replenishable, index) in replenishables"
-      v-bind:key="index"
+      :key="index"
       :onLongPress="() => onLongPress(replenishable)"
       :loading="replenishables.length === 0"
       :replenishable="replenishable"

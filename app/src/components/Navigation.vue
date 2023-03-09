@@ -68,6 +68,7 @@ export default {
 nav {
   --foreground: 2;
   --background: 1;
+  pointer-events: none;
   position: fixed;
   z-index: 3;
   top: 0;
@@ -80,12 +81,12 @@ nav {
 }
 
 menu {
+  pointer-events: all;
   position: absolute;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
   width: 100%;
-  height: 100%;
   max-width: 600px;
   max-height: 50vh;
   bottom: var(--spacing-large);
@@ -107,6 +108,7 @@ menu button:hover {
 }
 
 nav > button {
+  pointer-events: all;
   display: flex;
   align-items: center;
   justify-content: center;

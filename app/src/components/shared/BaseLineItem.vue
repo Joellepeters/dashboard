@@ -1,56 +1,74 @@
 <script lang="ts">
+import BaseImage from './BaseImage.vue';
+
 export default {
   name: 'BaseLineItem',
   props: {
-    imageUrl: String,
+    imageUrl: {
+      type: String,
+      required: false,
+      default: '',
+    },
     headline: String,
     subheadline: String,
+    href: {
+      type: String,
+      required: false,
+      default: '',
+    },
     columns: {
       type: String,
       default: '40px 1fr',
     },
   },
+  components: {
+    BaseImage,
+  },
 }
 </script>
 
 <template>
-  <li :style="{ gridTemplateColumns: columns }">
+  <a
+    v-if="href.length > 0"
+    :style="{ gridTemplateColumns: columns }"
+    :href="href"
+    target="blank"
+  >
     <span>
-      <figure :style="{ backgroundImage: 'url(' + imageUrl + ')' }">
-        <img :src="imageUrl" />
-      </figure>
+      <BaseImage :imageUrl="imageUrl" />
+    </span>
+    <span class="header">
+      <strong>{{ headline }}</strong>
+      <div>
+        <small>{{ subheadline }}</small>
+      </div>
+    </span>
+    <slot></slot>
+  </a>
+
+  <button v-if="href.length === 0">
+    <span>
+      <BaseImage :imageUrl="imageUrl" />
     </span>
     <span class="header">
       <strong>{{ headline }}</strong>
       <div><small>{{ subheadline }}</small></div>
     </span>
     <slot></slot>
-  </li>
+  </button>
 </template>
 
 <style scoped>
-li {
+button,
+a {
   display: grid;
   grid-template-rows: 1fr;
+  grid-template-columns: auto 1fr;
   align-items: center;
-  gap: var(--spacing-small);
+  gap: var(--spacing-base);
+  padding: var(--spacing-base);
   border-radius: var(--border-radius-2);
-}
-
-figure {
-  position: relative;
-  background-size: cover;
-  background-position: center;
-  width: 100%;
-  max-width: 85%;
-  padding-top: 85%;
-  background-color: var(--lightest);
-  border-radius: var(--border-radius-1);
-  margin: 0;
-}
-
-figure img {
-  display: none;
+  color: currentColor;
 }
 
 .header {

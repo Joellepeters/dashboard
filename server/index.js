@@ -2,33 +2,33 @@ import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import dotenv from "dotenv"
+import { Client } from "@notionhq/client"
 
-import initNotion, {
-  getInventory,
+import {
   getInstructions,
-  getPage,
+  getInventory,
+  getLinks,
   getRecipes,
   getReplenishables
 } from './notion.js'
 
 const PORT = 3000
 
+export const notion = new Client({ auth: process.ENV.NOTION_API })
 export const app = express()
 
 dotenv.config()
+
 app.use(cors())
 app.use(bodyParser.json())
 
+app.set('trust proxy', true)
 app.set('port', PORT)
-app.set('trust proxy', true) // Prevents CORS issue
 
-initNotion()
+app.get('/instructions', (_request, response) => getInstructions(response, notion))
+app.get('/inventory',  (_request, response) => getInventory(response, notion))
+app.get('/links',  (_request, response) => getLinks(response, notion))
+app.get('/recipes',  (_request, response) => getRecipes(response, notion))
+app.get('/replenishables',  (_request, response) => getReplenishables(response, notion))
 
-// Endpoints
-app.get('/inventory', getInventory)
-app.get('/replenishables', getReplenishables)
-app.get('/recipes', getRecipes)
-app.get('/page', getPage)
-app.get('/instructions', getInstructions)
-
-app.listen(PORT, () => console.log(`App listening on port ${PORT}`))
+app.listen(PORT, () => console.log("Server started"))

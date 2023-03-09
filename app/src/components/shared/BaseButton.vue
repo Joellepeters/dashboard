@@ -19,6 +19,9 @@ button {
   color: white;
   font-weight: var(--font-bold);
   font-size: var(--font-xlarge);
-  box-shadow: var(--shadow-1);
+}
+
+button:disabled {
+  opacity: 0.5;
 }
 </style>

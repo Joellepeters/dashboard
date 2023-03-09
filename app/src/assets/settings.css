@@ -19,6 +19,7 @@
   --brand-transparent: hsl(212, 90%, 50%, 0.5);
 
   --lightest: hsl(0, 0%, 96%);
+  --lighter: hsl(0, 0%, 90%);
   --light: hsl(0, 0%, 80%);
   --neutral: hsl(0, 0%, 40%);
   --darkest: hsl(0, 0%, 10%);
