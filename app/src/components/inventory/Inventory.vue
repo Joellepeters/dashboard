@@ -7,6 +7,7 @@ import {
 } from '../../helpers.js'
 
 import BaseCard from '../shared/BaseCard.vue'
+import BaseCategory from '../shared/BaseCategory.vue'
 
 export default {
   name: 'InventoryView',
@@ -19,6 +20,7 @@ export default {
   },
   components: {
     BaseCard,
+    BaseCategory,
   },
   methods: {
     async fetchInventory() {
@@ -35,6 +37,20 @@ export default {
     imageUrl(item: object) {
       return getImageUrl(item)
     },
+    getCategories(inventory: Array<object>) {
+      if (inventory.length > 0)
+        return inventory.reduce((categories: object, item: object) => {
+          const options = item.properties.category.multi_select
+          const optionIds = [
+            ...categories,
+            ...options.map((o: object) => o.name)
+          ]
+          return optionIds.filter(
+            (id, index) => optionIds.indexOf(id) === index
+          )
+        }, [])
+      else return []
+    },
   },
   data() {
     return {
@@ -50,6 +66,14 @@ export default {
 <template>
   <article>
     <menu v-if="inventory.length > 0">
+      <BaseCategory
+        v-for="(category, index) in getCategories(inventory)"
+        :key="index"
+        :headline="category"
+      >
+      </BaseCategory>
+    </menu>
+    <menu v-if="inventory.length > 0">
       <BaseCard
         v-for="(item, index) in inventory"
         v-bind:key="index"
@@ -63,6 +87,8 @@ export default {
 
 <style scoped>
 article {
+  display: flex;
+  flex-direction: column;
   padding: var(--spacing-base);
 }
 

@@ -5,6 +5,7 @@ import dotenv from "dotenv"
 import { Client } from "@notionhq/client"
 
 import {
+  getCollections,
   getInstructions,
   getInventory,
   getLinks,
@@ -25,6 +26,7 @@ app.use(bodyParser.json())
 app.set('trust proxy', true)
 app.set('port', PORT)
 
+app.get('/collections', (_request, response) => getCollections(response, notion))
 app.get('/instructions', (_request, response) => getInstructions(response, notion))
 app.get('/inventory',  (_request, response) => getInventory(response, notion))
 app.get('/links',  (_request, response) => getLinks(response, notion))

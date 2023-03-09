@@ -39,7 +39,7 @@ button {
 
 h1 {
   font-family: var(--font-family);
-  font-size: 40px;
+  font-size: var(--font-xlarge);
   margin: 0;
 }
 

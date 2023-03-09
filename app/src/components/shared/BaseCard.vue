@@ -41,13 +41,13 @@ export default {
     },
     startDrag(event: TouchEvent) {
       console.log('start')
-      this.setLongPressInterval()
+      // this.setLongPressInterval()
       this.pageX = event.pageX
       this.pageY = event.pageY
     },
     endDrag(event: TouchEvent) {
-      clearTimeout(this.longPressInterval)
-      if (this.longPress) this.onLongPress()
+      // clearTimeout(this.longPressInterval)
+      // if (this.longPress) this.onLongPress()
       // if (event.pageX < this.pageX) {
       //   console.log('swipe left')
       // } else {
@@ -55,10 +55,10 @@ export default {
       // }
     },
     setLongPressInterval() {
-      this.longPressInterval = setTimeout(
-        () => (this.longPress = true),
-        LONG_PRESS_INTERVAL
-      )
+      // this.longPressInterval = setTimeout(
+      //   () => (this.longPress = true),
+      //   LONG_PRESS_INTERVAL
+      // )
     },
   },
   data() {
@@ -79,7 +79,6 @@ export default {
   <button
     v-motion
     v-use-longpress="500"
-    @longpress="onLongpress"
     @touchstart="startDrag"
     @touchend="endDrag"
     :initial="initial"
@@ -98,7 +97,6 @@ export default {
         {{ subheadline }}
       </small>
     </header>
-    <!-- <BaseLoader v-if="loading" /> -->
   </button>
 </template>
 

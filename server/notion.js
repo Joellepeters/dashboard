@@ -1,6 +1,13 @@
-export async function getBudget(_request, response) {
+export async function getBudget(response, notion) {
   const data = await notion.databases.query({
     database_id:'f8e266bfce99423c911fa98bdc28375a'
+  })
+  return response.json(data.results)
+}
+
+export async function getCollections(response, notion) {
+  const data = await notion.databases.query({
+    database_id:'7b01c1ad39644aa5be9cef04c14a46c0'
   })
   return response.json(data.results)
 }

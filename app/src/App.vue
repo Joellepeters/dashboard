@@ -1,6 +1,7 @@
 <script lang="ts">
 import {
   BUDGET,
+  COLLECTIONS,
   FITNESS,
   INVENTORY,
   RECIPES,
@@ -11,6 +12,7 @@ import {
 import BaseButton from './components/shared/BaseButton.vue'
 import BaseLoader from './components/shared/BaseLoader.vue'
 import BaseOverlay from './components/shared/BaseOverlay.vue'
+import Collections from './components/collections/Collections.vue'
 import Inventory from './components/inventory/Inventory.vue'
 import Links from './components/links/Links.vue'
 import Navigation from './components/Navigation.vue'
@@ -23,6 +25,7 @@ export default {
     BaseButton,
     BaseLoader,
     BaseOverlay,
+    Collections,
     Inventory,
     Links,
     Navigation,
@@ -49,19 +52,28 @@ export default {
       this.expandedNav = false
     },
   },
+  watch: {
+    viewId(value) {
+      this.viewId = value
+    },
+  },
   data() {
     return {
-      viewId: window.localStorage.getItem('viewId') || '',
+      viewId: '',
       showOverlay: false,
       expandedNav: false,
-      loading: true,
+      loading: false,
       BUDGET,
+      COLLECTIONS,
       LINKS,
       FITNESS,
       INVENTORY,
       RECIPES,
       REPLENISHABLES,
     }
+  },
+  created() {
+    this.viewId = JSON.stringify(window.localStorage.getItem('viewId')) || ''
   },
 }
 </script>
@@ -73,6 +85,13 @@ export default {
       :expanded="expandedNav"
       :onExpand="() => expandNav()"
     >
+      <BaseButton
+        @click="() => tapNavItem(COLLECTIONS)"
+        :disabled="viewId === COLLECTIONS"
+        type="button"
+      >
+        Collections
+      </BaseButton>
       <BaseButton
         @click="() => tapNavItem(LINKS)"
         :disabled="viewId === LINKS"
@@ -105,15 +124,20 @@ export default {
 
     <BaseOverlay v-if="showOverlay === true" @click="tapOverlay" />
     <BaseLoader v-if="loading" />
+
+    <Collections
+      v-if="viewId === COLLECTIONS"
+      :onLoaded="() => (loading = false)"
+    />
+    <Inventory
+      v-if="viewId === INVENTORY"
+      :onLoaded="() => (loading = false)"
+    />
     <Replenishables
       v-if="viewId === REPLENISHABLES"
       :onLoaded="() => (loading = false)"
     />
     <Recipes v-if="viewId === RECIPES" :onLoaded="() => (loading = false)" />
     <Links v-if="viewId === LINKS" :onLoaded="() => (loading = false)" />
-    <Inventory
-      v-if="viewId === INVENTORY"
-      :onLoaded="() => (loading = false)"
-    />
   </main>
 </template>

@@ -1,4 +1,5 @@
 export const BUDGET = 'BUDGET'
+export const COLLECTIONS = 'COLLECTIONS'
 export const FITNESS = 'FITNESS'
 export const INVENTORY = 'INVENTORY'
 export const LINKS = 'LINKS'
